@@ -841,7 +841,7 @@ void loop() {
   else if(randNumber == 7) {octahedron();}
   else if(randNumber == 8) {perimeter();}
   else if(randNumber == 9) {diagonal();}
-  else if(randNumber == 10) {flash;}
+  else if(randNumber == 10) {flash();}
   //else if(randNumber == 11) {;}
   //else if(randNumber == 12) {;}
   //else if(randNumber == 13) {;}
