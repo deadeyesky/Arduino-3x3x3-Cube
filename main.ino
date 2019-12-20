@@ -21,6 +21,19 @@ void setup () {
   randomSeed(analogRead(0)); // Get signal from analog pin A0
 }
 
+void turnOn () {
+  for(int i = 0; i < 9; i++) {digitalWrite(ledCol[i], 1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0);}
+}
+
+void turnOnColumns () {
+  for(int i = 0; i < 9; i++) {digitalWrite(ledCol[i], 1);}
+}
+
+void turnOnRows () {
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0);}
+}
+
 void turnOff () {
   for(int i = 0; i < 9; i++) {digitalWrite(ledCol[i], 0);}
   for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1);}
@@ -805,10 +818,17 @@ void diagonal () {
   }
 }
 
+void flash () {
+  for (int i = 0; i < 7; i++) {
+    turnOn(); delay(250);
+    turnOff(); delay(timer);
+  }
+}
+
 void loop() {
   // Random Selection Algorithm
   // Print a random number from 1 to 10
-  randNumber = random(1, 10);
+  randNumber = random(1, 11);
   if (randNumber == randPrevious) {randNumber = random(1, 10);}
 
   Serial.print(randNumber);
@@ -821,7 +841,7 @@ void loop() {
   else if(randNumber == 7) {octahedron();}
   else if(randNumber == 8) {perimeter();}
   else if(randNumber == 9) {diagonal();}
-  //else if(randNumber == 10) {;}
+  else if(randNumber == 10) {flash;}
   //else if(randNumber == 11) {;}
   //else if(randNumber == 12) {;}
   //else if(randNumber == 13) {;}
