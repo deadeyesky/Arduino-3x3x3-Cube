@@ -825,6 +825,30 @@ void flash () {
   }
 }
 
+void tree () {
+  digitalWrite(ledCol[4], 1);
+  for (int j = 0; j < 3; j++) {
+    digitalWrite(ledRow[j], 0);
+    delay(timer);
+  }
+
+  for (int k = 0; k < 800; k++) {
+    turnOffRows();
+    digitalWrite(ledRow[0], 1);
+    delay(1);
+
+    digitalWrite(ledRow[0], 1);
+    digitalWrite(ledRow[1], 0);
+    for (int i = 1; i < 8; i+2) {digitalWrite(ledCol[i], 1);}
+    delay(1);
+
+    digitalWrite(ledRow[1], 1);
+    digitalWrite(ledRow[2], 0);
+    for (int i = 1; i < 8; i+2) {digitalWrite(ledCol[i], 0);}
+    delay(1);
+  }
+}
+
 void loop() {
   // Random Selection Algorithm
   // Print a random number from 1 to 10
