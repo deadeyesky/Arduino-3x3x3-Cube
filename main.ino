@@ -16,9 +16,9 @@ void setup () {
   // This for loop defines the column pins, in which there are 9 of them in this case
   for(int i = 0; i < 9; i++) {pinMode(ledCol[i], OUTPUT); digitalWrite(ledCol[i], 0);}
   for(int j = 0; j < 3; j++) {pinMode(ledRow[j], OUTPUT); digitalWrite(ledRow[j], 1);}
-  // Define the pin by which the random number's seed is obtained from. It uses the noise 
-  // picked up by the analog pin to generate a random number
-  randomSeed(analogRead(0)); // Get signal from analog pin A0
+  // Define the pin by which the random number's seed is obtained from. It uses the noise picked up by the pin to generate a random number
+  randomSeed(analogRead(0));
+  delay(transition);
 }
 
 void turnOn () {
@@ -129,6 +129,7 @@ void expandingCube () {
   for(int i = 0; i < randCubeNumber; i++) {
     randNumber = random(1, 9);
     if (randNumber == randPrevious) {randNumber = random(1, 9);}
+    randPrevious = randNumber;
 
     // Starting from the bottom of the first column
     if(randNumber == 1) {
@@ -388,10 +389,12 @@ void rainDrop () {
   Serial.println(" Rain Drop");
   randRainNumber = random(10, 20);
   if (randNumber == randPrevious) {randNumber = random(10, 20);}
+  randPrevious = randNumber;
 
   for(int i = 0; i < randRainNumber; i++) {
     randNumber = random(0, 9);
     if (randNumber == randPrevious) {randNumber = random(0, 9);}
+    randPrevious = randNumber;
 
     digitalWrite(ledCol[randNumber], 1);
     digitalWrite(ledRow[2], 0);
@@ -412,6 +415,7 @@ void layer () {
   Serial.println(" Layer");
   randCubeNumber = random(3, 6);
   if (randNumber == randPrevious) {randNumber = random(3, 6);}
+  randPrevious = randNumber;
 
   for(int i = 0; i < randCubeNumber; i++) {
     randNumber = random(1, 6);
@@ -565,6 +569,8 @@ void layer () {
       turnOff();
     }
   }
+
+  delay(transition);
 }
 
 void spiral () {
@@ -620,7 +626,7 @@ void octahedron () {
 
 void perimeter () {
   Serial.println(" Perimeter");
-  for(int i = 0; i < 300; i++) {
+  for(int i = 0; i < 400; i++) {
     digitalWrite(ledRow[0], 0);
     for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1);}
     digitalWrite(ledCol[3], 1);
@@ -661,7 +667,7 @@ void perimeter () {
     for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 0);}
     digitalWrite(ledCol[3], 0);
     digitalWrite(ledCol[5], 0);
-    for(int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 0);}
+    turnOffColumns();
   }
 }
 
@@ -817,15 +823,16 @@ void diagonal () {
     }
   }
 }
-
 void flash () {
+  Serial.println(" Flash");
   for (int i = 0; i < 7; i++) {
-    turnOn(); delay(250);
+    turnOn(); delay(timer);
     turnOff(); delay(timer);
   }
 }
 
 void tree () {
+  Serial.println(" Tree");
   digitalWrite(ledCol[4], 1);
   for (int j = 0; j < 3; j++) {
     digitalWrite(ledRow[j], 0);
@@ -834,17 +841,17 @@ void tree () {
 
   for (int k = 0; k < 800; k++) {
     turnOffRows();
-    digitalWrite(ledRow[0], 1);
+    digitalWrite(ledRow[0], 0);
     delay(1);
 
     digitalWrite(ledRow[0], 1);
     digitalWrite(ledRow[1], 0);
-    for (int i = 1; i < 8; i+2) {digitalWrite(ledCol[i], 1);}
+    for (int i = 1; i < 8; i+=2) {digitalWrite(ledCol[i], 1);}
     delay(1);
 
     digitalWrite(ledRow[1], 1);
     digitalWrite(ledRow[2], 0);
-    for (int i = 1; i < 8; i+2) {digitalWrite(ledCol[i], 0);}
+    for (int i = 1; i < 8; i+=2) {digitalWrite(ledCol[i], 0);}
     delay(1);
   }
 }
@@ -852,8 +859,9 @@ void tree () {
 void loop() {
   // Random Selection Algorithm
   // Print a random number from 1 to 10
-  randNumber = random(1, 11);
-  if (randNumber == randPrevious) {randNumber = random(1, 10);}
+  randNumber = random(1, 12);
+  if (randNumber == randPrevious) {randNumber = random(1, 12);}
+  randPrevious = randNumber;
 
   Serial.print(randNumber);
   if(randNumber == 1) {trail();}
@@ -866,7 +874,7 @@ void loop() {
   else if(randNumber == 8) {perimeter();}
   else if(randNumber == 9) {diagonal();}
   else if(randNumber == 10) {flash();}
-  //else if(randNumber == 11) {;}
+  else if(randNumber == 11) {tree();}
   //else if(randNumber == 12) {;}
   //else if(randNumber == 13) {;}
   //else if(randNumber == 14) {;}
