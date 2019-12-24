@@ -2,12 +2,15 @@
 
 int speed = 1;
 int rate = 1;
+
 long randNumber;
 long randPrevious;
 long randCubeNumber;
 long randRainNumber;
+
 static const uint8_t ledRow[] = {A1, A2, A3};
 static const uint8_t ledCol[] = {2, 3, 4, 5, 6, 7, 8, 9, 11};
+
 #define time1 100
 #define time2 250
 #define transition 400
@@ -446,7 +449,6 @@ void layer () {
       turnOff();
     }
   }
-
   delay(transition);
 }
 
@@ -473,7 +475,6 @@ void pulsingOctahedron () {
   for(int i = 50; i >= 0; i-=1) {
     digitalWrite(ledCol[4], 1);
     digitalWrite(ledRow[0], 0);
-
     delay(50);
 
     digitalWrite(ledRow[0], 1);
@@ -684,6 +685,10 @@ void tree () {
   digitalWrite(ledRow[0], 0); digitalWrite(ledCol[4], 1);
   delay(tree_time); turnOff();
 
+  digitalWrite(ledRow[0], 0); digitalWrite(ledRow[1], 0);
+  digitalWrite(ledCol[4], 1);
+  delay(tree_time); turnOff();
+
   for (int j = 333; j >= 0; j--) {
     digitalWrite(ledRow[0], 0);
     digitalWrite(ledCol[4], 1);
@@ -734,12 +739,33 @@ void randomDot () {
  }
 }
 
+void cartesian () {
+  Serial.println(" Cartesian");
+  for (int i = 333; i >= 0; i--) {
+    digitalWrite(ledRow[0], 0); digitalWrite(ledCol[4], 1);
+    for (int i = 7; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+    delay(frequencynum);
+
+    turnOff();
+    digitalWrite(ledRow[1], 0);
+    turnOnColumns();
+    delay(frequencynum);
+
+    turnOff();
+    digitalWrite(ledRow[2], 0); digitalWrite(ledCol[4], 1);
+    for (int i = 7; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+    delay(frequencynum);
+
+    turnOff();
+  }
+}
+
 void loop() {
   turnOff();
   // Random Selection Algorithm
   // Print a random number from 1 to 10
-  randNumber = random(1, 13);
-  if (randNumber == randPrevious) {randNumber = random(1, 13);}
+  randNumber = random(1, 14);
+  if (randNumber == randPrevious) {randNumber = random(1, 14);}
   randPrevious = randNumber;
 
   Serial.print(randNumber);
@@ -755,9 +781,13 @@ void loop() {
   else if(randNumber == 10) {flash();}
   else if(randNumber == 11) {tree();}
   else if(randNumber == 12) {randomDot();}
-  //else if(randNumber == 13) {;}
+  else if(randNumber == 13) {cartesian();}
   //else if(randNumber == 14) {;}
   //else if(randNumber == 15) {;}
   //else if(randNumber == 16) {;}
+  //else if(randNumber == 17) {;}
+  //else if(randNumber == 18) {;}
+  //else if(randNumber == 19) {;}
+  //else if(randNumber == 20) {;}
   delay(time1);
 }
