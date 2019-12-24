@@ -11,7 +11,21 @@ The boards that this code supports the [Arduino Uno](https://store.arduino.cc/us
 | Mega | `A1, A2, A3`  | `2, 3, 4, 5, 6, 7, 8, 9, 10` |
 | ATtiny84 | `A0, A1, A2`  | `2, 3, 4, 5, 6, 7, 8, 9, 10` |
 
-**Important for ATtiny users:** Note that for the ATtiny, a shift bit register will be needed. We used the [74HC595]() for this.
+**Important for ATtiny users:** Note that for the ATtiny, a shift bit register will be needed. We used the [SN74HC595D](https://www.ti.com/store/ti/en/p/product/?p=SN74HC595D) for this.
 
 The code initiates by assigning the pins in terms of a static constant which make it so that it can be defined using a loop. Columns are the vertical LEDs with rows being the layers of the cube. 
 
+The code includes the following functions:
+* Trail
+* Expanding Cube
+* Moving Layers
+* Rain Drops
+* Cross followed by vertical box
+* Vertical Spiral
+* Pulsating Octahedron
+* Perimeter Cube
+* Diagonal moving dot
+* Flashing
+* Randomly appearing dot
+* Growing tree
+* Triple Cartesian planes
