@@ -18,8 +18,8 @@ void setup () {
   // Initialize the serial monitor in case of diagnostics
   Serial.begin(9600);
   // This for loop defines the column pins, in which there are 9 of them in this case
-  for(int i = 0; i < 9; i++) {pinMode(ledCol[i], OUTPUT);}
-  for(int j = 0; j < 3; j++) {pinMode(ledRow[j], OUTPUT);}
+  for(int i = 8; i >= 0; i++) {pinMode(ledCol[i], OUTPUT);}
+  for(int j = 2; j >= 0; j++) {pinMode(ledRow[j], OUTPUT);}
   // Define the pin by which the random number's seed is obtained from. It uses the noise picked up by the pin to generate a random number
   randomSeed(analogRead(0));
   delay(transition);
@@ -130,7 +130,7 @@ void expandingCube () {
   Serial.println(" Expanding Cube");
   // Generates random number to choose which corner to start from.
   randCubeNumber = random(3, 5);
-  for(int i = 0; i < randCubeNumber; i++) {
+  for(int i = randCubeNumber; i >= 0; i--) {
     randNumber = random(1, 9);
     if (randNumber == randPrevious) {randNumber = random(1, 9);}
     randPrevious = randNumber;
@@ -141,18 +141,18 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[1], 1);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[0], 1); digitalWrite(ledCol[6], 0);
-      for (int i = 0; i < 4; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 3; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[7], 0);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -162,19 +162,19 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[1], 1);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[0], 1);
-      for (int i = 0; i < 2; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 2; i < 9; i+=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 1; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 2; i-=3) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[7], 0);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -184,19 +184,19 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[7], 1);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[0], 1);
-      for (int i = 0; i < 4; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 3; i >= 0; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 6; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[1], 0);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -205,18 +205,18 @@ void expandingCube () {
       digitalWrite(ledCol[8], 1); digitalWrite(ledRow[0], 0);
       delay(transition);
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[7], 1);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[0], 1); digitalWrite(ledCol[2], 0);
-      for (int i = 5; i < 9; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 5; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[1], 0);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -226,18 +226,18 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[1], 1);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[2], 1); digitalWrite(ledCol[6], 0);
-      for (int i = 0; i < 4; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 3; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[7], 0);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -247,19 +247,19 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[1], 1);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[2], 1);
-      for (int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 5; i < 9; i+=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 2; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 5; i-=3) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[7], 0);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -269,19 +269,19 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[7], 1);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[2], 1);
-      for (int i = 0; i < 4; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 3; i >= 0; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 6; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[1], 0);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
 
@@ -291,18 +291,18 @@ void expandingCube () {
       delay(transition);
 
       digitalWrite(ledRow[1], 0); digitalWrite(ledCol[7], 1);
-      for (int i = 4; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 4; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
 
       turnOn();
       delay(transition);
 
       digitalWrite(ledRow[0], 1); digitalWrite(ledCol[2], 0);
-      for (int i = 5; i < 9; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 5; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition);
 
       digitalWrite(ledRow[1], 1); digitalWrite(ledCol[1], 0);
-      for (int i = 3; i < 5; i++) {digitalWrite(ledCol[i], 0);}
+      for (int i = 4; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
       delay(transition); turnOff();
     }
     delay(transition);
@@ -312,22 +312,20 @@ void expandingCube () {
 void crossBox () {
   Serial.println(" Cross Box");
   digitalWrite(ledCol[4], 1);
-  for (int i = 1; i < 8; i+=2) {digitalWrite(ledCol[i], 1);}
+  for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
 
-  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
-
+  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 0); delay(time1);}
   delay(transition);
 
-  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
-
+  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1); delay(time1);}
   digitalWrite(ledCol[4], 0);
 
   turnOnColumns();
   digitalWrite(ledCol[4], 0);
 
-  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
+  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 0); delay(time1);}
 
-  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
+  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1); delay(time1);}
 }
 
 void rainDrop () {
@@ -336,7 +334,7 @@ void rainDrop () {
   if (randNumber == randPrevious) {randNumber = random(10, 20);}
   randPrevious = randNumber;
 
-  for(int i = 0; i < randRainNumber; i++) {
+  for(int i = randRainNumber; i >= 0; i--) {
     randNumber = random(0, 9);
     if (randNumber == randPrevious) {randNumber = random(0, 9);}
     randPrevious = randNumber;
@@ -362,18 +360,18 @@ void layer () {
   if (randNumber == randPrevious) {randNumber = random(3, 6);}
   randPrevious = randNumber;
 
-  for(int i = 0; i < randCubeNumber; i++) {
+  for(int i = randCubeNumber; i >= 0; i--) {
     randNumber = random(1, 6);
     if(randNumber == 1) {
       // Front to back
       turnOnRows();
-      for (int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 2; i >= 0; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 3; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 2; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 3; i < 6; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 6; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
       turnOff();
     }
@@ -381,13 +379,13 @@ void layer () {
     if(randNumber == 2) {
       // Back to Front
       turnOnRows();
-      for (int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 8; i >= 6; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 3; i < 6; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 8; i >= 6; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 5; i >= 3; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 3; i < 6; i++) {digitalWrite(ledCol[i], 0);}
-      for (int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1);}
+      for (int i = 5; i >= 3; i--) {digitalWrite(ledCol[i], 0);}
+      for (int i = 2; i >= 0; i--) {digitalWrite(ledCol[i], 1);}
       delay(transition);
       turnOff();
     }
@@ -423,13 +421,13 @@ void layer () {
     if(randNumber == 5) {
       // Left to Right
       turnOnRows();
-      for (int i = 2; i < 9; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 8; i >= 2; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 2; i < 9; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 1; i < 8; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 8; i >= 2; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 7; i >= 1; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 1; i < 8; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 0; i < 7; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 7; i >= 1; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 6; i >= 0; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
       turnOff();
     }
@@ -437,13 +435,13 @@ void layer () {
     if(randNumber == 6) {
       // Front to back
       turnOnRows();
-      for (int i = 0; i < 7; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 6; i >= 0; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 0; i < 7; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 1; i < 8; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 6; i >= 0; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 7; i >= 1; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
-      for (int i = 1; i < 8; i+=3) {digitalWrite(ledCol[i], 0);}
-      for (int i = 2; i < 9; i+=3) {digitalWrite(ledCol[i], 1);}
+      for (int i = 7; i >= 1; i-=3) {digitalWrite(ledCol[i], 0);}
+      for (int i = 8; i >= 2; i-=3) {digitalWrite(ledCol[i], 1);}
       delay(transition);
       turnOff();
     }
@@ -454,13 +452,13 @@ void layer () {
 
 void spiral () {
   Serial.println(" Spiral");
-  for(int j = 0; j < 3; j++) {
+  for(int j = 2; j >= 0; j--) {
     digitalWrite(ledRow[j], 0);
-    for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1); delay(time1);}
+    for(int i = 2; i >= 0; i--) {digitalWrite(ledCol[i], 1); delay(time1);}
 
     digitalWrite(ledCol[5], 1); delay(time1);
 
-    for(int i = 8; i > 5; i--) {digitalWrite(ledCol[i], 1); delay(time1);}
+    for(int i = 8; i >= 5; i--) {digitalWrite(ledCol[i], 1); delay(time1);}
 
     digitalWrite(ledCol[3], 1); delay(time1);
     digitalWrite(ledCol[4], 1); delay(time1);
@@ -472,7 +470,7 @@ void spiral () {
 
 void pulsingOctahedron () {
   Serial.println(" Octahedron");
-  for(int i = 50; i >=0; i-=1) {
+  for(int i = 50; i >= 0; i-=1) {
     digitalWrite(ledCol[4], 1);
     digitalWrite(ledRow[0], 0);
 
@@ -481,13 +479,13 @@ void pulsingOctahedron () {
     digitalWrite(ledRow[0], 1);
     digitalWrite(ledCol[4], 0);
     digitalWrite(ledRow[1], 0);
-    for (int i = 1; i < 8; i+=2) {digitalWrite(ledCol[i], 1);}
+    for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
 
     delay(50);
 
     digitalWrite(ledRow[1], 1);
     digitalWrite(ledRow[2], 0);
-    for (int i = 1; i < 8; i+=2) {digitalWrite(ledCol[i], 0);}
+    for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 0);}
     digitalWrite(ledCol[4], 1);
 
     delay(50);
@@ -499,44 +497,32 @@ void pulsingOctahedron () {
 
 void perimeter () {
   Serial.println(" Perimeter");
-  for(int i = 0; i < 400; i++) {
+  for(int i = 400; i >= 0; i--) {
     digitalWrite(ledRow[0], 0);
-    for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1);}
-    for(int i = 5; i >= 3; i-=2) {digitalWrite(ledCol[i], 1);}
-    for(int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 1);}
+    turnOnColumns(); digitalWrite(ledCol[4], 0);
     delay(frequencynum);
 
-    digitalWrite(ledRow[0], 1);
-    for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 0);}
-    for(int i = 5; i >= 3; i-=2) {digitalWrite(ledCol[i], 0);}
-    for(int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 0);}
-    for(int i = 8; i >= 6; i-=2) {digitalWrite(ledCol[i], 1);}
-    for(int i = 2; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+    turnOffColumns();
+    turnOffRows();
+    for(int i = 8; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+    digitalWrite(ledCol[4], 0);
     digitalWrite(ledRow[1], 0);
     delay(frequencynum);
 
-    for(int i = 8; i >= 6; i-=2) {digitalWrite(ledCol[i], 0);}
-    for(int i = 2; i >= 0; i-=2) {digitalWrite(ledCol[i], 0);}
-    digitalWrite(ledRow[1], 1);
-
+    turnOffColumns();
+    turnOffRows();
     digitalWrite(ledRow[2], 0);
-    for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 1);}
-    for(int i = 5; i >= 3; i-=2) {digitalWrite(ledCol[i], 1);}
-    for(int i = 6; i < 9; i++) {digitalWrite(ledCol[i], 1);}
-
+    turnOnColumns(); digitalWrite(ledCol[4], 0);
     delay(frequencynum);
 
-    digitalWrite(ledRow[2], 1);
-    for(int i = 0; i < 3; i++) {digitalWrite(ledCol[i], 0);}
-    for(int i = 5; i >= 3; i-=2) {digitalWrite(ledCol[i], 1);}
-    turnOffColumns();
+    turnOff();
   }
 }
 
 void diagonal () {
   Serial.println(" Diagonal");
   randCubeNumber = random(3, 6);
-  for(int i = 0; i < randCubeNumber; i++) {
+  for(int i = randCubeNumber; i >= 0; i--) {
     randNumber = random(1, 9);
     if (randNumber == randPrevious) {randNumber = random(1, 9);}
     // Front Bottom Right to Back Top Left
