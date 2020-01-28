@@ -1,4 +1,5 @@
 #include <Arduino.h>
+//#include "sequences.h"
 
 int speed = 1;
 int rate = 1;
@@ -34,23 +35,23 @@ void turnOn () {
 }
 
 void turnOnColumns () {for(int i = 8; i >= 0; i--) {digitalWrite(ledCol[i], 1);}}
-
 void turnOnRows () {for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 0);}}
-
 void turnOnCenter () {digitalWrite(ledCol[4], 1); digitalWrite(ledRow[1], 0);}
-
 void turnOff () {
   for(int i = 8; i >= 0; i--) {digitalWrite(ledCol[i], 0);}
   for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1);}
 }
-
 void turnOffColumns () {for(int i = 8; i >= 0; i--) {digitalWrite(ledCol[i], 0);}}
-
 void turnOffRows () {for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1);}}
-
 void turnOffCenter () {digitalWrite(ledCol[4], 0); digitalWrite(ledRow[1], 1);}
-
 void singleLedTest () {digitalWrite(ledRow[1], 0); digitalWrite(ledCol[2], 1);}
+
+double randomFunction (double first_number, double last_number) {
+  randNumber = random(first_number, last_number);
+  if (randNumber == randPrevious) {randNumber = random(first_number, last_number);}
+  randPrevious = randNumber;
+  return randNumber;
+}
 
 void trail () {
   Serial.println(" Trail");
@@ -121,6 +122,9 @@ void trail () {
   delay(time1);
   digitalWrite(ledCol[7], 0);
   digitalWrite(ledCol[8], 1);
+  delay(time1);
+  turnOff();
+  delay(transition);
 }
 
 void expandingCube () {
@@ -128,9 +132,7 @@ void expandingCube () {
   // Generates random number to choose which corner to start from.
   randCubeNumber = random(3, 5);
   for(int i = randCubeNumber; i >= 0; i--) {
-    randNumber = random(1, 9);
-    if (randNumber == randPrevious) {randNumber = random(1, 9);}
-    randPrevious = randNumber;
+    randomFunction(1, 9);
 
     // Starting from the bottom of the first column
     if(randNumber == 1) {
@@ -311,30 +313,27 @@ void crossBox () {
   digitalWrite(ledCol[4], 1);
   for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
 
-  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 0); delay(time1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
   delay(transition);
 
-  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1); delay(time1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
   digitalWrite(ledCol[4], 0);
 
   turnOnColumns();
   digitalWrite(ledCol[4], 0);
 
-  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 0); delay(time1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
 
-  for(int j = 2; j >= 0; j--) {digitalWrite(ledRow[j], 1); delay(time1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
 }
 
 void rainDrop () {
   Serial.println(" Rain Drop");
-  randRainNumber = random(10, 20);
-  if (randNumber == randPrevious) {randNumber = random(10, 20);}
-  randPrevious = randNumber;
+  randRainNumber = random(10, 16);
 
+  // Begins the random column assortment
   for(int i = randRainNumber; i >= 0; i--) {
-    randNumber = random(0, 9);
-    if (randNumber == randPrevious) {randNumber = random(0, 9);}
-    randPrevious = randNumber;
+    randomFunction(0, 9);
 
     digitalWrite(ledCol[randNumber], 1);
     digitalWrite(ledRow[2], 0);
@@ -353,12 +352,11 @@ void rainDrop () {
 
 void layer () {
   Serial.println(" Layer");
-  randCubeNumber = random(3, 6);
-  if (randNumber == randPrevious) {randNumber = random(3, 6);}
-  randPrevious = randNumber;
+
+  randCubeNumber = random(3, 5);
 
   for(int i = randCubeNumber; i >= 0; i--) {
-    randNumber = random(1, 6);
+    randomFunction(1, 6);
     if(randNumber == 1) {
       // Front to back
       turnOnRows();
@@ -466,7 +464,7 @@ void spiral () {
 
 void pulsingOctahedron () {
   Serial.println(" Octahedron");
-  for(int i = 50; i >= 0; i-=1) {
+  for(int i = 50; i >= 0; i--) {
     digitalWrite(ledCol[4], 1);
     digitalWrite(ledRow[0], 0);
     delay(50);
@@ -518,8 +516,7 @@ void diagonal () {
   Serial.println(" Diagonal");
   randCubeNumber = random(3, 6);
   for(int i = randCubeNumber; i >= 0; i--) {
-    randNumber = random(1, 9);
-    if (randNumber == randPrevious) {randNumber = random(1, 9);}
+    randomFunction(1, 9);
     // Front Bottom Right to Back Top Left
     if (randNumber == 1) {
       digitalWrite(ledCol[0], 1);
@@ -665,6 +662,7 @@ void diagonal () {
       digitalWrite(ledRow[0], 1);
     }
   }
+  delay(transition);
 }
 
 void flash () {
@@ -727,9 +725,8 @@ void randomDot () {
   Serial.println(" Random Dot");
   // Repeat this operation 30 times
   for (int i = 30; i >= 0; i--) {
-    randNumber = random(0, 9);
-    if (randNumber == randPrevious) {randNumber = random(0, 9);}
-    randPrevious = randNumber;
+    randomFunction(0, 9);
+
     digitalWrite(ledCol[randNumber], 1);
     // For this next step we are repuposing randCubeNumber to give us a random number between 0 and 2 for the random assignment of the rows:
     randCubeNumber = random(0, 3);
@@ -741,12 +738,11 @@ void randomDot () {
  }
 }
 
-void testDiagonal () {
+void slant () {
   Serial.println(" Diagonal");
   randCubeNumber = random(3, 6);
   for(int i = randCubeNumber; i >= 0; i--) {
-    randNumber = random(1, 5);
-    if (randNumber == randPrevious) {randNumber = random(1, 5);}
+    randomFunction(1, 5);
     // Front Bottom Right to Back Top Left
     if (randNumber == 1) {
       for (int i = 0; i <= 2; i++) {
@@ -866,15 +862,64 @@ void cartesian () {
   }
 }
 
+void checkerboard () {
+  Serial.println(" Checkerboard");
+  for (int i = 5; i >= 0; i--) {
+    for (int i = 175; i >= 0; i--) {
+      for (int i = 8; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+      for (int j = 2; j >= 0; j-=2) {digitalWrite(ledRow[j], 0);}
+      delay(frequencynum);
+
+      for (int i = 8; i >= 0; i-=2) {digitalWrite(ledCol[i], 0);}
+      for (int j = 2; j >= 0; j-=2) {digitalWrite(ledRow[j], 1);}
+      for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
+      digitalWrite(ledRow[1], 0);
+      delay(frequencynum);
+
+      for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 0);}
+      digitalWrite(ledRow[1], 1);
+      delay(frequencynum);
+    }
+
+    for (int i = 175; i >= 0; i--) {
+      for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
+      for (int j = 2; j >= 0; j-=2) {digitalWrite(ledRow[j], 0);}
+      delay(frequencynum);
+
+      for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 0);}
+      for (int j = 2; j >= 0; j-=2) {digitalWrite(ledRow[j], 1);}
+      for (int i = 8; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+      digitalWrite(ledRow[1], 0);
+      delay(frequencynum);
+
+      turnOff();
+      delay(frequencynum);
+    }
+  }
+}
+
+void crossDiamond () {
+  Serial.println(" Cross Diamond");
+  for (int i = 8; i >= 0; i-=2) {digitalWrite(ledCol[i], 1);}
+
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
+  delay(transition);
+
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
+  digitalWrite(ledCol[4], 0);
+
+  for (int i = 7; i >= 1; i-=2) {digitalWrite(ledCol[i], 1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 0); delay(time1);}
+  for(int j = 0; j < 3; j++) {digitalWrite(ledRow[j], 1); delay(time1);}
+}
+
 void loop() {
   turnOff();
   // Random Selection Algorithm
-  // Print a random number from 1 to 10
-  randNumber = random(1, 16);
-  if (randNumber == randPrevious) {randNumber = random(1, 16);}
-  randPrevious = randNumber;
-
+  // Print a random number from 1 to 17
+  randomFunction(1, 18);
   Serial.print(randNumber);
+
   if(randNumber == 1) {trail();}
   else if(randNumber == 2) {expandingCube();}
   else if(randNumber == 3) {layer();}
@@ -887,9 +932,13 @@ void loop() {
   else if(randNumber == 10) {flash();}
   else if(randNumber == 11) {tree();}
   else if(randNumber == 12) {randomDot();}
-  //else if(randNumber == 13) {testDiagonal();}
+  else if(randNumber == 13) {slant();}
   else if(randNumber == 14) {hourglass();}
   else if(randNumber == 15) {cartesian();}
-  //else if(randNumber == 16) {;}
+  else if(randNumber == 16) {checkerboard();}
+  else if(randNumber == 17) {crossDiamond();}
+  //else if(randNumber == 18) {();}
+  //else if(randNumber == 19) {();}
+  //else if(randNumber == 20) {();}
   delay(time1);
 }
